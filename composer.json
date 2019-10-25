@@ -1,0 +1,17 @@
+{
+    "name": "artiden/lh-test",
+    "description": "Result of the test task for Ligo Headhunters company",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Denys Reveha",
+            "email": "hmx@ukr.net"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}

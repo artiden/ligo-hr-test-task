@@ -1,0 +1,41 @@
+version: "2"
+services:
+  app:
+    image: busybox
+    container_name: lh_app
+    depends_on:
+      - "nginx"
+
+  data:
+    image: busybox
+    container_name: lh_data
+    volumes:
+      - .:/var/www
+
+  nginx:
+    image: webcodium/nginx:laravel
+    container_name: lh_nginx
+    volumes_from:
+      - data
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      NGINX_HOST: lh.local
+      NGINX_HTTP_PORT: 80
+      NGINX_HTTPS_PORT: 443
+      NGINX_CLIENT_MAX_BODY_SIZE: 10m
+      NGINX_VHOST_ROOT_DIRECTORY: /var/www
+      FASTCGI_URL: php
+    depends_on:
+      - "php"
+
+  php:
+    image: webcodium/php:php7.2
+    container_name: lh_php
+    volumes_from:
+      - data
+    working_dir: /var/www
+    command: >
+            /bin/sh -c "rm -f /etc/php/7.2/mods-available/opcache.ini 
+            && /usr/sbin/php-fpm7.2 -F -R"
