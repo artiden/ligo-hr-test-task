@@ -31,13 +31,12 @@ class User
      * @param Skill $skill
      * @return \App\User
      */
-    public function addSkill(Skill $skill)
+    public function addSkill(Skill $skill):User
     {
-        if ($this->skills->contains($skill)) {
-            return $this;
+        if (!$this->skills->contains($skill)) {
+            $this->skills->attach($skill);
         }
 
-        $this->skills->attach($skill);
         return $this;
     }
     

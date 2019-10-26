@@ -32,7 +32,7 @@ class Company
      * @param Requirement $additionalRequirement
      * @return \App\Company
      */
-    public function addRequirement(Requirement $mainRequiment, Requirement $additionalRequirement = null)
+    public function addRequirement(Requirement $mainRequiment, Requirement $additionalRequirement = null):Company
     {
         if ($mainRequiment->getMask() == $additionalRequirement->getMask()) {
             $additionalRequirement = new Requirement();
@@ -50,7 +50,7 @@ class Company
      * 
      * @return Generator
      */
-    public function requirementMasks()
+    protected function requirementMasks()
     {
         foreach ($this->requirements as $cur) {
             list($main, $additional) = $cur;
